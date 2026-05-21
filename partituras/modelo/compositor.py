@@ -165,3 +165,67 @@ class ReglaFrecuencia(ReglaTransformacion):
         "la": 440,
         "si": 493
     }
+
+    def partitura_valida(self, partitura):
+
+        errores = []
+
+        numeros = self.encontrar_numeros_partitura(partitura)
+
+        if numeros:
+            mensaje = ", ".join(
+                [f"{c} en posición {i}" for i, c in numeros]
+            )
+
+            errores.append(
+                ContieneNumero(mensaje)
+            )
+
+        invalidos = self.encontrar_caracteres_invalidos(partitura)
+
+        if invalidos:
+            mensaje = ", ".join(
+                [f"{c} en posición {i}" for i, c in invalidos]
+            )
+
+            errores.append(
+                ContieneCaracterInvalido(mensaje)
+            )
+
+        if partitura != partitura.strip():
+            errores.append(
+                EspacioBordes(
+                    "Hay espacios al inicio o final"
+                )
+            )
+
+        if "  " in partitura:
+            errores.append(
+                EspacioMultiple(
+                    "Hay múltiples espacios"
+                )
+            )
+
+        partitura = partitura.lower()
+
+        tokens = partitura.split()
+
+        invalidos = [
+            t for t in tokens
+            if t not in self.FRECUENCIAS
+        ]
+
+        if invalidos:
+            errores.append(
+                ContieneCaracterInvalido(
+                    f"Notas inválidas: {invalidos}"
+                )
+            )
+
+        if errores:
+            raise ExceptionGroup(
+                "Errores de validación",
+                errores
+            )
+
+        return True
