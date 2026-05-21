@@ -137,3 +137,19 @@ class ReglaTransposicion(ReglaTransformacion):
         ]
 
         return " ".join(resultado)
+
+    def _transponer(self, nota):
+
+        indice = self.NOTAS.index(nota)
+
+        nuevo = (indice + self.token) % len(self.NOTAS)
+
+        return self.NOTAS[nuevo]
+
+    def _revertir_nota(self, nota):
+
+        indice = self.NOTAS.index(nota)
+
+        nuevo = (indice - self.token) % len(self.NOTAS)
+
+        return self.NOTAS[nuevo]
