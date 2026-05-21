@@ -229,3 +229,16 @@ class ReglaFrecuencia(ReglaTransformacion):
             )
 
         return True
+
+    def transformar(self, partitura):
+
+        self.partitura_valida(partitura)
+
+        partitura = partitura.lower()
+
+        resultado = [
+            str(self.FRECUENCIAS[nota] * self.token)
+            for nota in partitura.split()
+        ]
+
+        return " ".join(resultado)
