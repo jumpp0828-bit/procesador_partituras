@@ -31,3 +31,14 @@ class ReglaTransformacion(ABC):
             for i, caracter in enumerate(partitura)
             if caracter.isdigit()
         ]
+
+    def encontrar_caracteres_invalidos(self, partitura):
+        return [
+            (i, caracter)
+            for i, caracter in enumerate(partitura)
+            if ord(caracter) > 127
+        ]
+
+class ReglaTransposicion(ReglaTransformacion):
+
+    NOTAS = ["do", "re", "mi", "fa", "sol", "la", "si"]
