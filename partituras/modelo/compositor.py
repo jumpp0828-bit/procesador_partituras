@@ -103,3 +103,20 @@ class ReglaTransposicion(ReglaTransformacion):
             )
 
         return True
+
+    def transformar(self, partitura):
+
+        self.partitura_valida(partitura)
+
+        partitura = partitura.lower()
+
+        tokens = partitura.split()
+
+        resultado = [
+            self._transponer(t)
+            if t in self.NOTAS
+            else t
+            for t in tokens
+        ]
+
+        return " ".join(resultado)
