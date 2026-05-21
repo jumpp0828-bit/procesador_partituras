@@ -153,3 +153,15 @@ class ReglaTransposicion(ReglaTransformacion):
         nuevo = (indice - self.token) % len(self.NOTAS)
 
         return self.NOTAS[nuevo]
+
+class ReglaFrecuencia(ReglaTransformacion):
+
+    FRECUENCIAS = {
+        "do": 261,
+        "re": 293,
+        "mi": 329,
+        "fa": 349,
+        "sol": 392,
+        "la": 440,
+        "si": 493
+    }
