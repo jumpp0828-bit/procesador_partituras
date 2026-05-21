@@ -120,3 +120,20 @@ class ReglaTransposicion(ReglaTransformacion):
         ]
 
         return " ".join(resultado)
+
+    def revertir(self, partitura):
+
+        self.partitura_valida(partitura)
+
+        partitura = partitura.lower()
+
+        tokens = partitura.split()
+
+        resultado = [
+            self._revertir_nota(t)
+            if t in self.NOTAS
+            else t
+            for t in tokens
+        ]
+
+        return " ".join(resultado)
